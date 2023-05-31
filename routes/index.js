@@ -5,22 +5,23 @@ const router = express.Router();
 torrentSearch.enablePublicProviders(); // Enable public torrent providers
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express", torrents: [] });
-});
-
-router.get("/search", function (req, res, next) {
-  res.render("index", { title: "Express", torrents: [] });
-});
-
-router.post("/search", async (req, res) => {
-  const searchTerm = req.body.searchTerm;
+router.get("/", async (req, res, next) => {
+  const resultsPerPage = 25;
+  const searchTerm = req.query.search || "";
+  const currentPage = parseInt(req.query.page) || 1;
 
   try {
-    //TODO filter by category
-    //TODO pagination
-    const torrents = await torrentSearch.search(searchTerm, "All");
-    res.render("index", { torrents });
+    const result = await torrentSearch.search(searchTerm, "All");
+    const totalPages = Math.ceil(result.length / resultsPerPage);
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const torrents = result.slice(startIndex, startIndex + resultsPerPage);
+
+    res.render("index", {
+      torrents,
+      currentPage,
+      totalPages,
+      searchTerm,
+    });
   } catch (err) {
     console.error(err);
     res.render("error");

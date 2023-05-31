@@ -3,9 +3,9 @@ extends layout
 block content
   .container
     h1.mt-5 Torrent Search
-    form(action='/search', method='post', class='mt-3')
+    form(action='', method='get', class='mt-3')
       .input-group
-        input(type='text', name='searchTerm', class='form-control', placeholder='Search Torrents')
+        input(type='text', name='search', class='form-control', value=`${searchTerm}`, placeholder='Search Torrents')
         .input-group-append
           button(type='submit', class='btn btn-primary') Search
 
@@ -18,11 +18,11 @@ block content
             if torrent.link
               a(href=torrent.link, target='_blank', class='btn btn-sm btn-primary mt-2') Download
             a(href=torrent.desc, target='_blank', class='btn btn-sm btn-secondary mt-2 ml-2') More Info
-      //- if currentPage > 1
-      //-   a(href=`/?page=${currentPage - 1}`, class='btn btn-primary mt-3') &larr; Previous
+      if currentPage > 1
+        a(href=`/?page=${currentPage - 1}&search=${searchTerm}`, class='btn btn-primary mt-3') &larr; Previous
 
-      //- if currentPage < totalPages
-      //-   a(href=`/?page=${currentPage + 1}`, class='btn btn-primary mt-3 ml-2') Next &rarr;
+      if currentPage < totalPages
+        a(href=`/?page=${currentPage + 1}&search=${searchTerm}`, class='btn btn-primary mt-3 ml-2') Next &rarr;
 
     else
       p.mt-3 No results found.
