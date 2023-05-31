@@ -17,8 +17,9 @@ router.post("/search", async (req, res) => {
   const searchTerm = req.body.searchTerm;
 
   try {
-    const torrents = await torrentSearch.search(searchTerm, "All", 10);
-    console.log(torrents);
+    //TODO filter by category
+    //TODO pagination
+    const torrents = await torrentSearch.search(searchTerm, "All");
     res.render("index", { torrents });
   } catch (err) {
     console.error(err);
