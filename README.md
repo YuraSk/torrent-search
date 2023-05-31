@@ -25,5 +25,24 @@ Follow these steps to run the application on your local machine:
 
 1. Clone the repository:
 
-   ```shell
-   git clone https://github.com/your-username/your-repository.git
+```shell
+git clone https://github.com/YuraSk/torrent-search
+```
+
+2. Install npm dependencies:
+
+```shell
+npm install
+```
+
+3. Run the app:
+
+```shell
+npm start
+```
+
+4. Open the following URL in your web browser:
+
+```shell
+http://127.0.0.1:3000/
+```
