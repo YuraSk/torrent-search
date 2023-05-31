@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    h1.mt-5 Torrent Search
+    form(action='/search', method='post', class='mt-3')
+      .input-group
+        input(type='text', name='searchTerm', class='form-control', placeholder='Search Torrents')
+        .input-group-append
+          button(type='submit', class='btn btn-primary') Search
+
+    if torrents.length > 0
+      ul.list-group.mt-3
+        each torrent in torrents
+          li.list-group-item
+            h5 #{torrent.title}
+            p.m-0 Seeds: #{torrent.seeds} | Peers: #{torrent.peers} | Size: #{torrent.size} | Provider: #{torrent.provider}
+            if torrent.link
+              a(href=torrent.link, target='_blank', class='btn btn-sm btn-primary mt-2') Download
+            a(href=torrent.desc, target='_blank', class='btn btn-sm btn-secondary mt-2 ml-2') More Info
+    else
+      p.mt-3 No results found.
